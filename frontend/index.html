@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Phishing Detector</title>
+
+    <link
+        rel="stylesheet"
+        href="/ui/style.css"
+    >
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- Header -->
+        <section class="hero">
+
+            <div class="shield-icon">
+                🛡️
+            </div>
+
+            <h1>
+                AI Phishing Detector
+            </h1>
+
+            <p>
+                Analyze a URL using machine-learning
+                based phishing detection.
+            </p>
+
+        </section>
+
+
+        <!-- Scanner -->
+        <section class="scanner-card">
+
+            <label for="urlInput">
+                Enter URL
+            </label>
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    id="urlInput"
+                    placeholder="https://example.com"
+                    autocomplete="off"
+                >
+
+                <button
+                    id="scanButton"
+                    type="button"
+                >
+                    Scan URL
+                </button>
+
+            </div>
+
+            <p
+                id="errorMessage"
+                class="error-message"
+            ></p>
+
+        </section>
+
+
+        <!-- Loading -->
+        <section
+            id="loading"
+            class="loading hidden"
+        >
+            <div class="spinner"></div>
+
+            <p>
+                Analyzing URL...
+            </p>
+        </section>
+
+
+        <!-- Result -->
+        <section
+            id="resultCard"
+            class="result-card hidden"
+        >
+
+            <div id="resultIcon">
+                🛡️
+            </div>
+
+            <h2 id="prediction">
+                LEGITIMATE
+            </h2>
+
+            <p id="riskLevel">
+                Risk: LOW
+            </p>
+
+
+            <div class="probability-container">
+
+                <div class="probability-item">
+
+                    <span>
+                        Legitimate Probability
+                    </span>
+
+                    <strong id="legitimateProbability">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="probability-item">
+
+                    <span>
+                        Phishing Probability
+                    </span>
+
+                    <strong id="phishingProbability">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="explanation-box">
+
+                <h3>Why this result?</h3>
+
+                <ul id="explanationList"></ul>
+
+            </div>
+
+            <div class="scanned-url">
+
+                <span>
+                    Scanned URL
+                </span>
+
+                <p id="scannedUrl">
+                    -
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Disclaimer -->
+        <section class="disclaimer">
+
+            <p>
+                This tool provides an ML-based assessment
+                of URL characteristics. It does not guarantee
+                that a website is safe or malicious.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <script src="/ui/script.js"></script>
+
+</body>
+</html>
