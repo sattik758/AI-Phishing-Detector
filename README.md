@@ -6,6 +6,33 @@ The project combines **Python, Scikit-learn, Flask, HTML, CSS, and JavaScript** 
 
 ---
 
+## Demo
+
+![AI Phishing Detection System Demo](docs/demo.png)
+
+The application provides ML-based URL classification, probability estimates, risk assessment, and human-readable indicators explaining selected URL characteristics.
+
+> **Note:** The demo uses `paypa1.com` as a controlled brand-lookalike test case. A model prediction is a risk assessment based on URL characteristics and the training dataset, not proof that a website is malicious.
+
+---
+
+## Model Performance
+
+The final V2 Random Forest was evaluated using a domain-aware holdout split with **zero domain overlap** between training and testing domains.
+
+| Metric | Result |
+|---|---:|
+| Accuracy | **99.69%** |
+| Precision | **99.81%** |
+| Recall | **99.39%** |
+| F1 Score | **99.60%** |
+| False Positives | 33 |
+| False Negatives | 105 |
+
+**Evaluation:** 235,370 URLs · 175,509 unique domains · 34 URL-based features
+
+---
+
 ## 🎯 Project Objective
 
 The objective of this project is to develop a machine-learning-based system capable of identifying potentially phishing URLs using lexical and structural characteristics of URLs.
