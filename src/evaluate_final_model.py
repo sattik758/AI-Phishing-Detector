@@ -42,7 +42,7 @@ def main():
     model_path = (
         project_root
         / "model"
-        / "phishing_model_v2_domain_split.pkl"
+        / "final_model.pkl"
     )
 
     # ==========================================
