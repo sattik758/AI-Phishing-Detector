@@ -592,9 +592,7 @@ AI-Phishing-Detector/
 │   └── phishing_urls.csv
 │
 ├── model/
-│   ├── final_model.pkl
-│   ├── phishing_model.pkl
-│   └── phishing_model_v2.pkl
+│   └── final_model.pkl
 │
 ├── src/
 │   ├── feature_extraction.py

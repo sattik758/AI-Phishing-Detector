@@ -341,3 +341,40 @@ body {
     position: absolute;
     left: 0;
 }
+
+/* =========================
+   Assessment & Signals
+   ========================= */
+
+.assessment-section {
+    background: #151c32;
+    border: 1px solid #293452;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+}
+
+.assessment-section h4,
+.signals-section h4 {
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.assessment-note {
+    color: #aab4d0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.signals-section {
+    background: #151c32;
+    border: 1px solid #293452;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.signals-section ul {
+    margin: 0;
+}

@@ -91,7 +91,7 @@ def generate_explanation(features):
     # If no suspicious signals were found
     if not signals:
         signals.append(
-            "No major suspicious URL characteristics detected"
+            "No major suspicious URL characteristics detected by the rule-based checks"
         )
 
     return signals
@@ -145,9 +145,26 @@ def predict_url(url):
 
     explanation = generate_explanation(features)
 
-    # ======================================
-    # Result
-    # ======================================
+    # Explain the relationship between the ML prediction
+    # and the rule-based explanation layer.
+    if (
+        prediction == 1
+        and len(explanation) == 1
+        and explanation[0].startswith(
+            "No major suspicious URL characteristics"
+        )
+    ):
+        assessment_note = (
+            "The machine-learning model classified this URL as "
+            "potentially phishing, but the rule-based explanation "
+            "checks did not identify a major suspicious URL signal."
+        )
+    else:
+        assessment_note = (
+            "This result is a machine-learning-based risk assessment "
+            "using URL characteristics. It is not proof that the "
+            "website is malicious or safe."
+        )
 
     return {
         "url": url,
@@ -161,5 +178,6 @@ def predict_url(url):
         "phishing_probability":
             phishing_probability,
         "risk": risk,
-        "explanation": explanation
+        "explanation": explanation,
+        "assessment_note": assessment_note
     }

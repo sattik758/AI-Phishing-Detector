@@ -12,6 +12,7 @@ const phishingProbability = document.getElementById("phishingProbability");
 const scannedUrl = document.getElementById("scannedUrl");
 const resultIcon = document.getElementById("resultIcon");
 const explanationList = document.getElementById("explanationList");
+const assessmentNote = document.getElementById("assessmentNote");
 
 scanButton.addEventListener("click", scanURL);
 
@@ -65,6 +66,7 @@ async function scanURL() {
 
         // Update explanation
         explanationList.innerHTML = "";
+        assessmentNote.textContent = data.assessment_note;
 
         data.explanation.forEach((reason) => {
             const li = document.createElement("li");
