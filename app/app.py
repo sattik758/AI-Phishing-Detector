@@ -21,6 +21,8 @@ def is_valid_url(url):
 
 app = Flask(__name__)
 
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+
 @app.after_request
 def add_security_headers(response):
     response.headers["X-Content-Type-Options"] = "nosniff"

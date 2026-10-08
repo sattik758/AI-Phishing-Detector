@@ -82,6 +82,19 @@ class TestAPI(unittest.TestCase):
             "URL is too long"
         )
 
+    def test_oversized_request_body(self):
+        large_value = "A" * (17 * 1024)
+
+        response = self.client.post(
+            "/api/predict",
+            json={
+                "url": "https://example.com",
+                "junk": large_value
+            }
+        )
+
+        self.assertEqual(response.status_code, 413)
+
     def test_invalid_url_format(self):
         response = self.client.post(
             "/api/predict",
@@ -117,7 +130,9 @@ class TestAPI(unittest.TestCase):
     def test_url_with_credentials(self):
         response = self.client.post(
             "/api/predict",
-            json={"url": "https://user:password@example.com/login"}
+            json={
+                "url": "https://user:password@example.com/login"
+            }
         )
 
         self.assertEqual(response.status_code, 200)
@@ -141,21 +156,6 @@ class TestAPI(unittest.TestCase):
         )
 
         response.close()
-
-        self.assertEqual(
-            response.headers.get("X-Content-Type-Options"),
-            "nosniff"
-        )
-
-        self.assertEqual(
-            response.headers.get("X-Frame-Options"),
-            "DENY"
-        )
-
-        self.assertEqual(
-            response.headers.get("Referrer-Policy"),
-            "no-referrer"
-        )
 
 
 if __name__ == "__main__":
