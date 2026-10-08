@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 from pathlib import Path
+from urllib.parse import urlparse
 
 from app.predictor import predict_url
 
@@ -7,6 +8,16 @@ from app.predictor import predict_url
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FRONTEND_FOLDER = PROJECT_ROOT / "frontend"
 
+def is_valid_url(url):
+    parsed = urlparse(url)
+
+    if parsed.scheme not in ("http", "https"):
+        return False
+
+    if not parsed.netloc:
+        return False
+
+    return True
 
 app = Flask(__name__)
 
@@ -49,9 +60,9 @@ def predict():
     # Check JSON body
     data = request.get_json(silent=True)
 
-    if not data:
+    if not isinstance(data, dict):
         return jsonify({
-            "error": "Request body must be JSON"
+            "error": "Request body must be a JSON object"
         }), 400
 
     # Get URL
@@ -73,6 +84,11 @@ def predict():
     if not url:
         return jsonify({
             "error": "URL cannot be empty"
+        }), 400
+
+    if not is_valid_url(url):
+        return jsonify({
+            "error": "Invalid URL format"
         }), 400
 
     # Prevent extremely large input

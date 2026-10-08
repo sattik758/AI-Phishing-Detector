@@ -82,8 +82,65 @@ class TestAPI(unittest.TestCase):
             "URL is too long"
         )
 
+    def test_invalid_url_format(self):
+        response = self.client.post(
+            "/api/predict",
+            json={"url": "not-a-url"}
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.get_json()["error"],
+            "Invalid URL format"
+        )
+
+    def test_incomplete_url(self):
+        response = self.client.post(
+            "/api/predict",
+            json={"url": "http://"}
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.get_json()["error"],
+            "Invalid URL format"
+        )
+
+    def test_valid_https_url(self):
+        response = self.client.post(
+            "/api/predict",
+            json={"url": "https://example.com"}
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_with_credentials(self):
+        response = self.client.post(
+            "/api/predict",
+            json={"url": "https://user:password@example.com/login"}
+        )
+
+        self.assertEqual(response.status_code, 200)
+
     def test_security_headers(self):
         response = self.client.get("/ui")
+
+        self.assertEqual(
+            response.headers.get("X-Content-Type-Options"),
+            "nosniff"
+        )
+
+        self.assertEqual(
+            response.headers.get("X-Frame-Options"),
+            "DENY"
+        )
+
+        self.assertEqual(
+            response.headers.get("Referrer-Policy"),
+            "no-referrer"
+        )
+
+        response.close()
 
         self.assertEqual(
             response.headers.get("X-Content-Type-Options"),
