@@ -1,151 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>AI Phishing Detector</title>
 
+    <!-- Cache-busted stylesheet -->
     <link
         rel="stylesheet"
-        href="/ui/style.css"
+        href="/ui/style.css?v=3"
     >
+
 </head>
+
 
 <body>
 
     <main class="container">
 
-        <!-- Header -->
-        <section class="hero">
+
+        <!-- =====================================================
+             Navigation
+        ====================================================== -->
+
+        <nav
+            class="top-nav"
+            aria-label="Primary navigation"
+        >
+
+            <a
+                class="brand-mini"
+                href="#scanner"
+            >
+                🛡️
+                <span>AI Phishing Detector</span>
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="#scanner">
+                    Scanner
+                </a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+                <a href="#model">
+                    Model
+                </a>
+
+                <a
+                    href="https://github.com/sattik758/AI-Phishing-Detector"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+
+            </div>
+
+        </nav>
+
+
+
+        <!-- =====================================================
+             Hero
+        ====================================================== -->
+
+        <section
+            class="hero"
+            id="scanner"
+        >
 
             <div class="shield-icon">
                 🛡️
             </div>
 
+
             <h1>
                 AI Phishing Detector
             </h1>
 
+
             <p>
-                Analyze a URL using machine-learning
-                based phishing detection.
+                Analyze a URL using machine-learning based phishing detection.
             </p>
 
         </section>
 
 
-        <!-- Scanner -->
+
+        <!-- =====================================================
+             Scanner
+        ====================================================== -->
+
         <section class="scanner-card">
 
             <label for="urlInput">
                 Enter URL
             </label>
 
+
             <div class="input-group">
 
-                <input
-                    type="text"
-                    id="urlInput"
-                    placeholder="https://example.com"
-                    autocomplete="off"
-                >
+                <div class="url-input-wrapper">
+
+                    <span
+                        class="input-icon"
+                        aria-hidden="true"
+                    >
+                        🔗
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="urlInput"
+                        placeholder="https://example.com"
+                        autocomplete="off"
+                        spellcheck="false"
+                        aria-label="URL to analyze"
+                    >
+
+                </div>
+
 
                 <button
                     id="scanButton"
                     type="button"
                 >
-                    Scan URL
+                    Analyze →
                 </button>
 
             </div>
 
+
             <p
                 id="errorMessage"
                 class="error-message"
+                role="alert"
             ></p>
 
         </section>
 
 
-        <!-- Loading -->
+
+        <!-- =====================================================
+             Loading
+        ====================================================== -->
+
         <section
             id="loading"
             class="loading hidden"
+            aria-live="polite"
         >
+
             <div class="spinner"></div>
 
             <p>
                 Analyzing URL...
             </p>
+
         </section>
 
 
-        <!-- Result -->
+
+        <!-- =====================================================
+             Result
+        ====================================================== -->
+
         <section
             id="resultCard"
             class="result-card hidden"
+            aria-live="polite"
         >
 
-            <div id="resultIcon">
+
+            <!-- Result Header -->
+
+            <div class="result-heading">
+
+                <div class="result-heading-label">
+                    SECURITY ANALYSIS
+                </div>
+
+
+                <span
+                    id="riskBadge"
+                    class="risk-badge risk-low"
+                >
+                    LOW
+                </span>
+
+            </div>
+
+
+
+            <!-- Result Icon -->
+
+            <div
+                id="resultIcon"
+                class="result-icon"
+            >
                 🛡️
             </div>
+
+
+
+            <!-- Prediction -->
 
             <h2 id="prediction">
                 LEGITIMATE
             </h2>
 
+
             <p id="riskLevel">
-                Risk: LOW
+                Application Risk: LOW
             </p>
 
 
-            <div class="probability-container">
 
-                <div class="probability-item">
+            <!-- =================================================
+                 Circular Probability
+            ================================================== -->
 
-                    <span>
-                        Legitimate Probability
-                    </span>
+            <div class="probability-main">
 
-                    <strong id="legitimateProbability">
-                        0%
-                    </strong>
+
+                <div
+                    id="probabilityCircle"
+                    class="circular-progress"
+                    style="--progress: 0deg;"
+                    aria-label="Phishing probability"
+                >
+
+                    <div class="circular-progress-inner">
+
+                        <strong id="probabilityValue">
+                            0%
+                        </strong>
+
+                        <span id="probabilityLabel">
+                            Phishing Probability
+                        </span>
+
+                    </div>
 
                 </div>
 
 
-                <div class="probability-item">
 
-                    <span>
-                        Phishing Probability
-                    </span>
+                <!-- Probability Summary -->
 
-                    <strong id="phishingProbability">
-                        0%
-                    </strong>
+                <div class="probability-summary">
+
+
+                    <div class="probability-item">
+
+                        <span>
+                            Legitimate Probability
+                        </span>
+
+                        <strong id="legitimateProbability">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="probability-item">
+
+                        <span>
+                            Phishing Probability
+                        </span>
+
+                        <strong id="phishingProbability">
+                            0%
+                        </strong>
+
+                    </div>
 
                 </div>
 
             </div>
+
+
+
+            <!-- =================================================
+                 Explanation
+            ================================================== -->
 
             <div class="explanation-box">
-                <h3>Why this result?</h3>
+
+                <h3>
+                    Why this result?
+                </h3>
+
+
+                <!-- Model Assessment -->
 
                 <div class="assessment-section">
-                    <h4>🤖 Model Assessment</h4>
-                    <p id="assessmentNote" class="assessment-note"></p>
+
+                    <h4>
+                        🤖 Model Assessment
+                    </h4>
+
+
+                    <p
+                        id="assessmentNote"
+                        class="assessment-note"
+                    ></p>
+
                 </div>
 
+
+
+                <!-- Detected Signals -->
+
                 <div class="signals-section">
-                    <h4>⚠ Detected URL Signals</h4>
+
+                    <h4>
+                        ⚠ Detected URL Signals
+                    </h4>
+
+
                     <ul id="explanationList"></ul>
+
                 </div>
+
             </div>
+
+
+
+            <!-- =================================================
+                 Technical Analysis
+            ================================================== -->
+
+            <details class="technical-analysis">
+
+                <summary>
+
+                    <span>
+                        🔎 Technical Analysis
+                    </span>
+
+                    <span class="summary-arrow">
+                        ⌄
+                    </span>
+
+                </summary>
+
+
+                <div
+                    id="technicalGrid"
+                    class="technical-grid"
+                ></div>
+
+
+                <p class="technical-note">
+
+                    These are URL characteristics visible to the scanner.
+                    They are provided for transparency and do not represent
+                    a complete website or threat-intelligence analysis.
+
+                </p>
+
+            </details>
+
+
+
+            <!-- =================================================
+                 Scanned URL
+            ================================================== -->
 
             <div class="scanned-url">
 
@@ -153,30 +386,283 @@
                     Scanned URL
                 </span>
 
+
                 <p id="scannedUrl">
                     -
                 </p>
 
             </div>
 
+
         </section>
 
 
-        <!-- Disclaimer -->
+
+        <!-- =====================================================
+             How It Works
+        ====================================================== -->
+
+        <section
+            id="how-it-works"
+            class="info-section"
+        >
+
+
+            <div class="section-heading">
+
+                <span class="section-eyebrow">
+                    PROCESS
+                </span>
+
+
+                <h2>
+                    How It Works
+                </h2>
+
+
+                <p>
+                    The scanner follows a simple analysis pipeline.
+                </p>
+
+            </div>
+
+
+
+            <div class="process-grid">
+
+
+                <div class="process-step">
+
+                    <span>
+                        01
+                    </span>
+
+                    <strong>
+                        URL Input
+                    </strong>
+
+                    <p>
+                        Submit a URL through the web interface.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-step">
+
+                    <span>
+                        02
+                    </span>
+
+                    <strong>
+                        Feature Extraction
+                    </strong>
+
+                    <p>
+                        URL-based lexical and structural features are extracted.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-step">
+
+                    <span>
+                        03
+                    </span>
+
+                    <strong>
+                        ML Classification
+                    </strong>
+
+                    <p>
+                        The trained Random Forest model evaluates the URL.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-step">
+
+                    <span>
+                        04
+                    </span>
+
+                    <strong>
+                        Assessment
+                    </strong>
+
+                    <p>
+                        The application returns probabilities, risk and signals.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             Model
+        ====================================================== -->
+
+        <section
+            id="model"
+            class="info-section model-section"
+        >
+
+
+            <div class="section-heading">
+
+                <span class="section-eyebrow">
+                    TECHNICAL
+                </span>
+
+
+                <h2>
+                    Model
+                </h2>
+
+
+                <p>
+                    The current scanner uses a URL-based machine-learning pipeline.
+                </p>
+
+            </div>
+
+
+
+            <div class="model-grid">
+
+
+                <div class="model-item">
+
+                    <span>
+                        Model
+                    </span>
+
+                    <strong>
+                        Random Forest V2
+                    </strong>
+
+                </div>
+
+
+
+                <div class="model-item">
+
+                    <span>
+                        Features
+                    </span>
+
+                    <strong>
+                        34 URL-based features
+                    </strong>
+
+                </div>
+
+
+
+                <div class="model-item">
+
+                    <span>
+                        Evaluation
+                    </span>
+
+                    <strong>
+                        Domain-aware holdout
+                    </strong>
+
+                </div>
+
+
+
+                <div class="model-item">
+
+                    <span>
+                        Purpose
+                    </span>
+
+                    <strong>
+                        Defensive URL assessment
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             Disclaimer
+        ====================================================== -->
+
         <section class="disclaimer">
 
             <p>
-                This tool provides an ML-based assessment
-                of URL characteristics. It does not guarantee
-                that a website is safe or malicious.
+
+                This tool provides an ML-based assessment of URL characteristics.
+                It does not guarantee that a website is safe or malicious.
+
             </p>
 
         </section>
 
+
+
+        <!-- =====================================================
+             Footer
+        ====================================================== -->
+
+        <footer class="site-footer">
+
+
+            <div>
+
+                <strong>
+                    AI Phishing Detector
+                </strong>
+
+                <span>
+                    Machine-learning based URL analysis
+                </span>
+
+            </div>
+
+
+            <div class="footer-meta">
+
+                <span>
+                    Random Forest • 34 URL Features
+                </span>
+
+                <span>
+                    © 2026 Sattik Das
+                </span>
+
+            </div>
+
+
+        </footer>
+
+
     </main>
 
 
-    <script src="/ui/script.js"></script>
+
+    <!-- Cache-busted JavaScript -->
+
+    <script src="/ui/script.js?v=3"></script>
 
 </body>
+
 </html>
