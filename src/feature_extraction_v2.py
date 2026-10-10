@@ -1,6 +1,6 @@
-import re
 import math
 import tldextract
+import ipaddress
 
 from urllib.parse import urlparse
 from difflib import SequenceMatcher
@@ -219,11 +219,11 @@ def extract_features_v2(url):
     # IP address
     # -----------------------------------------------------
 
-    ip_pattern = r"^(?:\d{1,3}\.){3}\d{1,3}$"
-
-    features["has_ip"] = int(
-        bool(re.match(ip_pattern, hostname))
-    )
+    try:
+        ipaddress.IPv4Address(hostname)
+        features["has_ip"] = 1
+    except ipaddress.AddressValueError:
+        features["has_ip"] = 0
 
     # -----------------------------------------------------
     # @ symbol
