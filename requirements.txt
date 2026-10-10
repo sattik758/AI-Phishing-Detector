@@ -6,3 +6,4 @@ joblib
 tldextract
 requests
 ucimlrepo
+gunicorn
